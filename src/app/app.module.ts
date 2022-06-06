@@ -7,6 +7,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeroesComponent } from './components/heroes/heroes.component';
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HeroesComponent } from './components/heroes/heroes.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
