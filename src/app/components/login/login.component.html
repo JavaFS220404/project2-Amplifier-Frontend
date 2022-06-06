@@ -1,1 +1,15 @@
-<p>login works!</p>
+<h1 class="col-sm-6" style="text-align: center;">Superheroes and Villains Battlesimulator</h1>
+<div class="row">
+    <h2 class="col-sm-6">Please Login</h2>
+</div>
+<form>
+    <div class="form-group">
+        <label for="loginUsername">Username: </label>
+        <input type="text" id="loginUsername" name="loginUsername" class="form-control" [(ngModel)]="username">
+    </div>
+    <div class="form-group">
+        <label for="loginPassword">Password: </label>
+        <input type="password" id="loginPassword" name="loginPassword" class="form-control" [(ngModel)]="password">
+    </div>
+</form>
+<button class="btn btn-primary" (click)="login()">Log in!</button>

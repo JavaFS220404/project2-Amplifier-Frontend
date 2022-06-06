@@ -1,1 +1,30 @@
-<p>register works!</p>
+<h1 class="col-sm-6" style="text-align: center;">Superheroes and Villains Battlesimulator</h1>
+<div class="row">
+    <h2 class="col-sm-6">Registration</h2>
+</div>
+<form>
+    <div class="form-group">
+        <label for="registerUsername">Username: </label>
+        <input type="text" id="registerUsername" name="registerUsername" class="form-control" [(ngModel)]="newUsername">
+    </div>
+    <div class="form-group">
+        <label for="registerPassword">Password: </label>
+        <input type="password" id="registerPassword" name="registerPassword" class="form-control" [(ngModel)]="newPassword">
+    </div>
+    <div class="form-group">
+        <label for="registerFirstName">First Name: </label>
+        <input type="text" id="registerFirstName" name="registerFirstName" class="form-control" [(ngModel)]="newFirstName">
+    </div>
+    <div class="form-group">
+        <label for="registerLastName">Last Name: </label>
+        <input type="text" id="registerLastName" name="registerLastName" class="form-control" [(ngModel)]="newLastName">
+    </div>
+    <div class="form-group">
+        <label for="registerEmail">E-Mail address: </label>
+        <input type="text" id="registerEmail" name="registerEmail" class="form-control" [(ngModel)]="newEmail">
+    </div>
+</form>
+<button class="btn btn-primary" (click)="register()">Register new User!</button>
+<div class="row" *ngIf="errorMessage">
+    <h3 class="col-sm-6 text-danger">{{errorMessage}}</h3>
+</div>
