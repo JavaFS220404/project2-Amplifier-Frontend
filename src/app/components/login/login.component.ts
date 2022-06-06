@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.userService.attemptLogin(user).subscribe({
       next:(authUser:User)=>{
         this.userService.activeUser = authUser;
-        this.router.navigate(["/teams"]);
+        this.router.navigate(["/heroes"]);
         console.log("Login successful!");
       },
       error:()=>{

@@ -1,1 +1,94 @@
-<p>heroes works!</p>
+<div *ngIf="username">
+    <div class="row">
+      <h2 class="col-sm-6">Welcome {{username}}!</h2>
+    </div>
+
+    <!--  Table to display list of favourite Heroes
+    <table *ngIf="favouriteHeros.length>0" class="table table-sm table-stripped">
+      <thead>
+        <tr>
+          <th scope="col">Hero Id</th>
+          <th scope="col">Hero Name</th>
+          <th scope="col">Powerstats</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fc of favouriteCharacters">
+          <td>{{hero.characterId}}</td>
+          <td>{{hero.characterName}}</td>
+          <td>
+            <table *ngIf="characters.powerStats.length>0">
+              <thead>
+                <tr>
+                  <th scope="col">Intelligence</th>
+                  <th scope="col">Strength</th>
+                  <th scope="col">Speed</th>
+                  <th scope="col">Durability</th>
+                  <th scope="col">Power</th>
+                  <th scope="col">Combat</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of fc.powerStats">
+                  <td>{{p.intelligence}}</td>
+                  <td>{{p.strength}}</td>
+                  <td>{{p.speed}}</td>
+                  <td>{{p.durability}}</td>
+                  <td>{{p.power}}</td>
+                  <td>{{p.combat}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  Favourite Heroes Table End-->
+    <br>
+    <br>  
+
+    <!--Create Hero  ....begins -->
+    <form>
+        <div class="form-group">
+        <h2 class="col-sm-6">Create your character:</h2>    
+        </div>
+      <div class="form-group">
+        <label for="characterName">Character Name:</label>
+        <input type="text" id="characterName" name="characterName" class="form-control" [(ngModel)]="newCharacterName">
+      </div>  
+      <div class="form-group">
+        <label for="intelligence">Intelligence:</label>
+        <input type="number" id="intelligence" name="intelligence" class="form-control" [(ngModel)]="newIntelligence">
+      </div>
+      <div class="form-group">
+        <label for="strength">Strength:</label>
+        <input type="number" id="strength" name="strength" class="form-control" [(ngModel)]="newStrength">
+      </div>
+      <div class="form-group">
+        <label for="speed">Speed:</label>
+        <input type="number" id="speed" name="speed" class="form-control" [(ngModel)]="newSpeed">
+      </div>
+      <div class="form-group">
+        <label for="durability">Durability:</label>
+        <input type="number" id="durability" name="durability" class="form-control" [(ngModel)]="newDurability">
+      </div>
+      <div class="form-group">
+        <label for="newPower">Power:</label>
+        <input type="number" id="power" name="power" class="form-control" [(ngModel)]="newPower">
+      </div>
+      <div class="form-group">
+        <label for="combat">Combat:</label>
+        <input type="number" id="combat" name="combat" class="form-control" [(ngModel)]="newCombat">
+      </div>
+      <div class="form-group">
+        <label for="isPublic">Public:</label>
+        <input type="checkbox" id="isPublic" name="isPublic"  [(ngModel)]="newIsPublic">
+      </div>
+    </form>
+    <button (click)="createCharater()" class="btn btn-success">Create Character</button>
+    <!--Create Hero  ....ends -->
+
+  </div>
+  <div *ngIf="!username">
+    <h1 class="text-danger">YOU MUST BE LOGGED IN TO VIEW THIS PAGE!</h1>
+  </div>

@@ -17,10 +17,17 @@ export class HeroService {
   }
 
   addHero(hero:Hero):Observable<Hero>{
+    console.log(hero);
     return this.http.post(this.url,hero,{withCredentials:true}) as Observable<Hero>
   }
+
 // To verify, eventually no hero and any instead of
-  getHero(hero:Hero, id:number):Observable<Hero>{
-    return this.http.get('http://localhost:8080/hero/' + id) as Observable<Hero>
+  getHeroById(id:number):Observable<any>{
+    return this.http.get('https://superheroapi.com/api/access-token/search/' + id) as Observable<any>
+  }
+
+  // To verify, eventually no hero and any instead of
+  getHeroByName(name:string):Observable<any>{
+    return this.http.get('https://superheroapi.com/api/access-token/search/' + name) as Observable<any>
   }
 }

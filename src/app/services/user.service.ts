@@ -8,7 +8,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  url:string = "http://localhost:8083/user/";
+  url:string = "http://localhost:8080/user/";
 
   activeUser:User|null = null;
 
