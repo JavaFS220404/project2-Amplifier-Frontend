@@ -25,6 +25,9 @@ export class HeroesComponent implements OnInit {
   favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
 
+  battleHeroId1:number = 0;
+  battleHeroId2:number = 0;
+
   constructor(private userService:UserService, private heroService:HeroService) { }
 
 
@@ -85,8 +88,70 @@ export class HeroesComponent implements OnInit {
   }   
 
 
-  /*
-   here comes battle logic 
-  */
+  heroBattle(){
+    let hero1:Hero = new Hero(this.battleHeroId1,"",0,0,0,0,0,0);
+    let hero2:Hero= new Hero(this.battleHeroId2,"",0,0,0,0,0,0);
+    this.heroService.getHeroById(this.battleHeroId1).subscribe({
+      next:(data:any)=>{
+          hero1 = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
+          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+      },
+      error:()=>{
+        console.log("The first Hero doesnt exist!");
+      }
+    });  
+    this.heroService.getHeroById(this.battleHeroId2).subscribe({
+      next:(data:any)=>{
+          hero2 = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
+          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+      },
+      error:()=>{
+        console.log("The second Hero doesnt exist!");
+      }
+    }); 
+
+    let counter:number = 0;
+    if(hero1.intelligence > hero2.intelligence){
+      counter++;
+    } else if(hero1.intelligence < hero2.intelligence){
+      counter--;
+    }
+    if(hero1.durability > hero2.durability){
+      counter++;
+    } else if(hero1.durability < hero2.durability){
+      counter--;
+    }
+    if(hero1.power > hero2.power){
+      counter++;
+    } else if(hero1.power < hero2.power){
+      counter--;
+    }
+    if(hero1.speed > hero2.speed){
+      counter++;
+    } else if(hero1.speed < hero2.speed){
+      counter--;
+    }
+    if(hero1.combat > hero2.combat){
+      counter++;
+    } else if(hero1.combat < hero2.combat){
+      counter--;
+    }
+    if(hero1.strength > hero2.strength){
+      counter++;
+    } else if(hero1.strength < hero2.strength){
+      counter--;
+    }
+
+    if(counter > 0){
+      console.log("Hero 1 wins!");
+      // boolean to change appearance in the HTML
+    } else if(counter < 0){
+      console.log("Hero 2 wins!");
+      // boolean to change appearance in the HTML 
+    } else {
+      console.log("Its a draw!");
+      // boolean to change appearance in the HTML
+    }
+  }
 }
 
