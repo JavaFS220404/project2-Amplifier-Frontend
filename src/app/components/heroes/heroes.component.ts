@@ -23,6 +23,7 @@ export class HeroesComponent implements OnInit {
   heroId:number = 0;
   heroName:string = '';
   favouriteHeros:Hero[]=[];
+  hero:Hero | undefined;
 
   constructor(private userService:UserService, private heroService:HeroService) { }
 
@@ -40,6 +41,17 @@ export class HeroesComponent implements OnInit {
       }
     })
   }
+
+  /*
+  loadHero(hero:Hero):void{
+    this.heroService.getHeroes().subscribe({
+      next:(data:Hero[])=>{
+        console.log(data);
+        this.favouriteHeros = data;
+      }
+    })
+  }
+*/
 
   createCharater(){
     console.log(this.newIsPublic);
@@ -71,6 +83,7 @@ export class HeroesComponent implements OnInit {
       }
     })
   }   
+
 
   /*
    here comes battle logic 

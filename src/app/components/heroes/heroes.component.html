@@ -3,6 +3,33 @@
       <h2 class="col-sm-6">Welcome {{username}}!</h2>
     </div>
 
+    <!--Search ... begins-->
+    <form>
+      <div class="form-group">
+         <h2 class="col-sm-6">Search for hero:</h2>    
+      </div>
+      <div >
+        <label for="searchName">Name:</label>
+        <input type="text" id="searchName" name="searchName" class="form-control" [(ngModel)]="heroName">
+      </div>   
+    </form>
+    <button (click)="getHeroByName()" class="btn btn-success">Search</button>
+    <br>
+    <br>
+
+    <form>
+      <div class="form-group">
+         <h2 class="col-sm-6">Search for hero:</h2>    
+      </div>
+      <div >
+        <label for="searchId">Id:</label>
+        <input type="text" id="searchId" name="searchId" class="form-control" [(ngModel)]="heroId">
+      </div>  
+    </form>
+    <button (click)="getHeroById()" class="btn btn-success">Search</button>
+    <!--Search ... ends here-->
+
+
     <!--  Table to display list of favourite Heroes
     <table *ngIf="favouriteHeros.length>0" class="table table-sm table-stripped">
       <thead>

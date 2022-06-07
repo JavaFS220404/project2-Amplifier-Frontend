@@ -23,11 +23,11 @@ export class HeroService {
 
 // To verify, eventually no hero and any instead of
   getHeroById(id:number):Observable<any>{
-    return this.http.get('https://superheroapi.com/api/access-token/search/' + id) as Observable<any>
+    return this.http.get('https://www.superheroapi.com/api.php/access-token/' + id) as Observable<any>
   }
 
   // To verify, eventually no hero and any instead of
   getHeroByName(name:string):Observable<any>{
-    return this.http.get('https://superheroapi.com/api/access-token/search/' + name) as Observable<any>
+    return this.http.get('https://www.superheroapi.com/api.php/access-token/search/' + name) as Observable<any>
   }
 }
