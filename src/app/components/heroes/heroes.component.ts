@@ -24,8 +24,8 @@ export class HeroesComponent implements OnInit {
   heroName:string = '';
   favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
-  hero1:Hero = new Hero(0,"",0,0,0,0,0,0);
-  hero2:Hero = new Hero(0,"",0,0,0,0,0,0);
+  hero1:Hero|undefined;
+  hero2:Hero|undefined;
 
   heroes:Hero[] = []; 
   battleHeroId1:number = 0;
@@ -91,12 +91,12 @@ export class HeroesComponent implements OnInit {
   }   
 
 
-  heroBattle(){
+  heroBattle():Hero[]{
     this.heroService.getHeroById(this.battleHeroId1).subscribe({
       next:(data:any)=>{
-         this.heroes[0]=data;
           this.hero1 = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
           data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+          this.heroes.push(this.hero1);
       },
       error:()=>{
         console.log("The first Hero doesnt exist!");
@@ -104,24 +104,23 @@ export class HeroesComponent implements OnInit {
     });  
     this.heroService.getHeroById(this.battleHeroId2).subscribe({
       next:(data:any)=>{
-        this.heroes[1]=data;
           this.hero2 = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
           data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
-
+          this.heroes.push(this.hero2);
       },
       error:()=>{
         console.log("The second Hero doesnt exist!");
       }
     }); 
 
-    //console.log(this.hero1);
-    //console.log(this.hero2)
-    console.log(this.heroes[0]);
-    console.log(this.heroes[1])
-   
-   
-    let counter:number = 0;
-    if(this.heroes[0].intelligence > this.heroes[1].intelligence){
+    console.log(this.hero1);
+    console.log(this.hero2);
+
+    return this.heroes;
+
+   /*
+       let counter:number = 0;
+    if(this.hero1.intelligence > this.hero2.intelligence){
       counter++;
       console.log(counter);
     } else if(this.hero1.intelligence < this.hero2.intelligence){
@@ -165,6 +164,7 @@ export class HeroesComponent implements OnInit {
       console.log("Its a draw!");
       // boolean to change appearance in the HTML
     }
+   */
 
   }
 }
