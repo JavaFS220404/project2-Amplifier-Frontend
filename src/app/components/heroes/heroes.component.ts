@@ -24,7 +24,10 @@ export class HeroesComponent implements OnInit {
   heroName:string = '';
   favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
+  hero1:Hero = new Hero(0,"",0,0,0,0,0,0);
+  hero2:Hero = new Hero(0,"",0,0,0,0,0,0);
 
+  heroes:Hero[] = []; 
   battleHeroId1:number = 0;
   battleHeroId2:number = 0;
 
@@ -59,7 +62,7 @@ export class HeroesComponent implements OnInit {
   createCharater(){
     console.log(this.newIsPublic);
     this.heroService.addHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
-                            this.newDurability,this.newPower,this.newCombat,this.newIsPublic)).subscribe({
+                            this.newDurability,this.newPower,this.newCombat)).subscribe({
       next:()=>{
         console.log("New character created.");
       },
@@ -89,11 +92,10 @@ export class HeroesComponent implements OnInit {
 
 
   heroBattle(){
-    let hero1:Hero = new Hero(this.battleHeroId1,"",0,0,0,0,0,0);
-    let hero2:Hero= new Hero(this.battleHeroId2,"",0,0,0,0,0,0);
     this.heroService.getHeroById(this.battleHeroId1).subscribe({
       next:(data:any)=>{
-          hero1 = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
+         this.heroes[0]=data;
+          this.hero1 = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
           data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
       },
       error:()=>{
@@ -102,45 +104,56 @@ export class HeroesComponent implements OnInit {
     });  
     this.heroService.getHeroById(this.battleHeroId2).subscribe({
       next:(data:any)=>{
-          hero2 = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
+        this.heroes[1]=data;
+          this.hero2 = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
           data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+
       },
       error:()=>{
         console.log("The second Hero doesnt exist!");
       }
     }); 
 
+    //console.log(this.hero1);
+    //console.log(this.hero2)
+    console.log(this.heroes[0]);
+    console.log(this.heroes[1])
+   
+   
     let counter:number = 0;
-    if(hero1.intelligence > hero2.intelligence){
+    if(this.heroes[0].intelligence > this.heroes[1].intelligence){
       counter++;
-    } else if(hero1.intelligence < hero2.intelligence){
+      console.log(counter);
+    } else if(this.hero1.intelligence < this.hero2.intelligence){
       counter--;
     }
-    if(hero1.durability > hero2.durability){
+    if(this.hero1.durability > this.hero2.durability){
       counter++;
-    } else if(hero1.durability < hero2.durability){
+    } else if(this.hero1.durability < this.hero2.durability){
       counter--;
     }
-    if(hero1.power > hero2.power){
+    if(this.hero1.power > this.hero2.power){
       counter++;
-    } else if(hero1.power < hero2.power){
+    } else if(this.hero1.power < this.hero2.power){
       counter--;
     }
-    if(hero1.speed > hero2.speed){
+    if(this.hero1.speed > this.hero2.speed){
       counter++;
-    } else if(hero1.speed < hero2.speed){
+    } else if(this.hero1.speed < this.hero2.speed){
       counter--;
     }
-    if(hero1.combat > hero2.combat){
+    if(this.hero1.combat > this.hero2.combat){
       counter++;
-    } else if(hero1.combat < hero2.combat){
+    } else if(this.hero1.combat < this.hero2.combat){
       counter--;
     }
-    if(hero1.strength > hero2.strength){
+    if(this.hero1.strength > this.hero2.strength){
       counter++;
-    } else if(hero1.strength < hero2.strength){
+    } else if(this.hero1.strength < this.hero2.strength){
       counter--;
     }
+
+    console.log(counter);
 
     if(counter > 0){
       console.log("Hero 1 wins!");
@@ -152,6 +165,7 @@ export class HeroesComponent implements OnInit {
       console.log("Its a draw!");
       // boolean to change appearance in the HTML
     }
+
   }
 }
 
