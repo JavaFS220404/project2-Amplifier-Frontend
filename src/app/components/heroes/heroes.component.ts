@@ -157,8 +157,6 @@ createCharater(){
     })
   }   
 
-<<<<<<< HEAD
-
   addFavourite(){
       this.userService.updateFavouriteList(this.userid,this.heroId).subscribe({
         next:()=>{
@@ -170,17 +168,6 @@ createCharater(){
       });
     
   }
-
- /* getHeroByName(){
-    this.heroService.getHeroByName(this.heroName).subscribe(
-      {next:(hero:Hero)=>{
-        console.log(hero);
-      }
-    })
-  } */  
-
-=======
->>>>>>> 91cb44baa345755776cf06736380ffc951334b67
 
   heroBattle(){
     this.battleHero1 = new Hero(0,"",0,0,0,0,0,0,"");
