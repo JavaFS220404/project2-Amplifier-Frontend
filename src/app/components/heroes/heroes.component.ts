@@ -130,12 +130,16 @@ createorUpdateCharater(){
 
 
   heroBattle(){
-    this.visibility = false;
     this.battleHero1 = new Hero(0,"",0,0,0,0,0,0,"");
     this.battleHero2 = new Hero(0,"",0,0,0,0,0,0,"");
     this.hero1Win = false;
     this.hero2Win = false;
+    this.visibility = false;
     this.draw = false;
+    this.visibilityRandom = false;
+    this.random1Win = false;
+    this.random2Win = false;
+    this.randomDraw = false;
     this.heroService.getHeroById(this.battleHeroId1).subscribe({
       next:(data:any)=>{
           let hero1:Hero = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
@@ -208,9 +212,13 @@ createorUpdateCharater(){
   }
 
   randomHeroBattle(){
-    this.visibilityRandom = false;
     this.randomHero1 = new Hero(0,"",0,0,0,0,0,0,"");
     this.randomHero2 = new Hero(0,"",0,0,0,0,0,0,"");
+    this.visibility = false;
+    this.hero1Win = false;
+    this.hero2Win = false;
+    this.draw = false;
+    this.visibilityRandom = false;
     this.random1Win = false;
     this.random2Win = false;
     this.randomDraw = false;
