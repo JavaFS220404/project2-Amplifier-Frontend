@@ -24,8 +24,6 @@ export class HeroesComponent implements OnInit {
   heroName:string = '';
   favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
-  hero1:Hero|undefined;
-  hero2:Hero|undefined;
 
   heroes:Hero[] = []; 
   battleHeroId1:number = 0;
@@ -91,69 +89,63 @@ export class HeroesComponent implements OnInit {
   }   
 
 
-  heroBattle():Hero[]{
+  heroBattle(){
     this.heroService.getHeroById(this.battleHeroId1).subscribe({
       next:(data:any)=>{
-          this.hero1 = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
+          let hero1:Hero = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
           data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
-          this.heroes.push(this.hero1);
+          this.heroService.getHeroById(this.battleHeroId2).subscribe({
+            next:(data:any)=>{
+                let hero2:Hero = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
+                data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+                console.log(hero1);
+                console.log(hero2);
+                this.battlelogic(hero1,hero2);
+            },
+            error:()=>{
+              console.log("The second Hero doesnt exist!");
+            }
+          }); 
       },
       error:()=>{
         console.log("The first Hero doesnt exist!");
       }
     });  
-    this.heroService.getHeroById(this.battleHeroId2).subscribe({
-      next:(data:any)=>{
-          this.hero2 = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
-          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
-          this.heroes.push(this.hero2);
-      },
-      error:()=>{
-        console.log("The second Hero doesnt exist!");
-      }
-    }); 
+    
 
-    console.log(this.hero1);
-    console.log(this.hero2);
-
-    return this.heroes;
-
-   /*
-       let counter:number = 0;
-    if(this.hero1.intelligence > this.hero2.intelligence){
+  }
+  battlelogic(hero1:Hero, hero2:Hero){
+    let counter:number = 0;
+    if(hero1.intelligence > hero2.intelligence){
       counter++;
-      console.log(counter);
-    } else if(this.hero1.intelligence < this.hero2.intelligence){
+    } else if(hero1.intelligence < hero2.intelligence){
       counter--;
     }
-    if(this.hero1.durability > this.hero2.durability){
+    if(hero1.durability > hero2.durability){
       counter++;
-    } else if(this.hero1.durability < this.hero2.durability){
+    } else if(hero1.durability < hero2.durability){
       counter--;
     }
-    if(this.hero1.power > this.hero2.power){
+    if(hero1.power > hero2.power){
       counter++;
-    } else if(this.hero1.power < this.hero2.power){
+    } else if(hero1.power < hero2.power){
       counter--;
     }
-    if(this.hero1.speed > this.hero2.speed){
+    if(hero1.speed > hero2.speed){
       counter++;
-    } else if(this.hero1.speed < this.hero2.speed){
+    } else if(hero1.speed < hero2.speed){
       counter--;
     }
-    if(this.hero1.combat > this.hero2.combat){
+    if(hero1.combat > hero2.combat){
       counter++;
-    } else if(this.hero1.combat < this.hero2.combat){
+    } else if(hero1.combat < hero2.combat){
       counter--;
     }
-    if(this.hero1.strength > this.hero2.strength){
+    if(hero1.strength > hero2.strength){
       counter++;
-    } else if(this.hero1.strength < this.hero2.strength){
+    } else if(hero1.strength < hero2.strength){
       counter--;
     }
-
-    console.log(counter);
-
     if(counter > 0){
       console.log("Hero 1 wins!");
       // boolean to change appearance in the HTML
@@ -163,9 +155,7 @@ export class HeroesComponent implements OnInit {
     } else {
       console.log("Its a draw!");
       // boolean to change appearance in the HTML
-    }
-   */
-
+    }   
   }
 }
 
