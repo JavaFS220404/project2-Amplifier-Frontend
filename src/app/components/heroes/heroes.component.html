@@ -1,32 +1,32 @@
 <div *ngIf="username">
-    <div class="row">
-      <h2 class="col-sm-6">Welcome {{username}}!</h2>
-    </div>
+  <div class="row justify-content-between">
+    <h5 class="col-sm-6">Welcome {{username}}!</h5>
+    <a class="nav-link col-sm-3" routerLinkActive="active" routerLink = "/login">Logout</a>
+  </div>
 
     <!--Search ... begins-->
     <form>
-      <div class="form-group">
+      <div class="row">
          <h2 class="col-sm-6">Search for hero:</h2>    
       </div>
-      <div >
-        <label for="searchName">Name:</label>
-        <input type="text" id="searchName" name="searchName" class="form-control" [(ngModel)]="heroName">
+      <div class="row justify-content-start">
+        <label for="searchName" class="col-sm-1">Name:</label>
+        <input type="text" id="searchName" name="searchName" class="col-sm-3" [(ngModel)]="heroName">
+        <button (click)="getHeroByName()" class="btn btn-success col-md-1 offset-md-1">Search</button>
       </div>   
     </form>
-    <button (click)="getHeroByName()" class="btn btn-success">Search</button>
     <br>
     <br>
-
     <form>
       <div class="form-group">
          <h2 class="col-sm-6">Search for hero:</h2>    
       </div>
       <div >
-        <label for="searchId">Id:</label>
-        <input type="text" id="searchId" name="searchId" class="form-control" [(ngModel)]="heroId">
+        <label for="searchId"  class="col-sm-1">Id:</label>
+        <input type="number" id="searchId" name="searchId" class="col-sm-3" [(ngModel)]="heroId">
+        <button (click)="getHeroById()" class="btn btn-success col-md-1 offset-md-1">Search</button>
       </div>  
     </form>
-    <button (click)="getHeroById()" class="btn btn-success">Search</button>
     <!--Search ... ends here-->
 
 
@@ -75,40 +75,48 @@
     <br>  
 
     <!--Create Hero  ....begins -->
-    <form>
-        <div class="form-group">
-        <h2 class="col-sm-6">Create your character:</h2>    
+    <div>
+      <form>
+        <div class="row">
+          <h6 class="text-danger">{{validationMessage}}</h6>
         </div>
-      <div class="form-group">
-        <label for="characterName">Character Name:</label>
-        <input type="text" id="characterName" name="characterName" class="form-control" [(ngModel)]="newCharacterName">
-      </div>  
-      <div class="form-group">
-        <label for="intelligence">Intelligence:</label>
-        <input type="number" id="intelligence" name="intelligence" class="form-control" [(ngModel)]="newIntelligence">
-      </div>
-      <div class="form-group">
-        <label for="strength">Strength:</label>
-        <input type="number" id="strength" name="strength" class="form-control" [(ngModel)]="newStrength">
-      </div>
-      <div class="form-group">
-        <label for="speed">Speed:</label>
-        <input type="number" id="speed" name="speed" class="form-control" [(ngModel)]="newSpeed">
-      </div>
-      <div class="form-group">
-        <label for="durability">Durability:</label>
-        <input type="number" id="durability" name="durability" class="form-control" [(ngModel)]="newDurability">
-      </div>
-      <div class="form-group">
-        <label for="newPower">Power:</label>
-        <input type="number" id="power" name="power" class="form-control" [(ngModel)]="newPower">
-      </div>
-      <div class="form-group">
-        <label for="combat">Combat:</label>
-        <input type="number" id="combat" name="combat" class="form-control" [(ngModel)]="newCombat">
-      </div>
-    </form>
-    <button (click)="createCharater()" class="btn btn-success">Create Character</button>
+          <div class="row">
+          <h4 class="col-sm-6">Create your character:</h4>    
+          </div>
+        <div class="row">
+          <label for="characterName">Character Name:</label>
+          <input type="text" id="characterName" name="characterName" class="col-sm-2" [(ngModel)]="newCharacterName">
+        </div>  
+        <div class="row">
+          <h5 class="col-sm-6">Powerstats:</h5>    
+        </div>
+        <div class="row">
+          <label for="intelligence">Intelligence:</label>
+          <input type="number" id="intelligence" name="intelligence" class="col-sm-2" [(ngModel)]="newIntelligence">
+        </div>
+        <div class="row">
+          <label for="strength">Strength:</label>
+          <input type="number" id="strength" name="strength" class="col-sm-2" [(ngModel)]="newStrength">
+        </div>
+        <div class="row">
+          <label for="speed">Speed:</label>
+          <input type="number" id="speed" name="speed" class="col-sm-2" [(ngModel)]="newSpeed">
+        </div>
+        <div class="row">
+          <label for="durability">Durability:</label>
+          <input type="number" id="durability" name="durability" class="col-sm-2" [(ngModel)]="newDurability">
+        </div>
+        <div class="row">
+          <label for="newPower">Power:</label>
+          <input type="number" id="power" name="power" class="col-sm-2" [(ngModel)]="newPower">
+        </div>
+        <div class="row">
+          <label for="combat">Combat:</label>
+          <input type="number" id="combat" name="combat" class="col-sm-2" [(ngModel)]="newCombat">
+        </div>
+      </form>
+      <button (click)="createCharater()" class="btn btn-success col-sm-6">Create Character</button>
+    </div>
     <!--Create Hero  ....ends -->
 
     <!--Battle Sim-->

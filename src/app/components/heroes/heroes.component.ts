@@ -18,14 +18,14 @@ export class HeroesComponent implements OnInit {
   newDurability:number = 0;
   newPower:number = 0;
   newCombat:number = 0;
-  newIsPublic:boolean = false;
+  total:number=0;
+  validationMessage:string='';
 
   heroId:number = 0;
   heroName:string = '';
   favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
 
-  heroes:Hero[] = []; 
   battleHeroId1:number = 0;
   battleHeroId2:number = 0;
 
@@ -58,17 +58,50 @@ export class HeroesComponent implements OnInit {
 */
 
   createCharater(){
-    console.log(this.newIsPublic);
-    this.heroService.addHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
-                            this.newDurability,this.newPower,this.newCombat)).subscribe({
-      next:()=>{
-        console.log("New character created.");
-      },
-      error:()=>{
-        console.log("Couldn't create new character!");
+
+    this.validationMessage='';
+
+    if (this.newCharacterName.length == 0){
+      this.validationMessage="Please input Character Name"; 
+      document.getElementById("characterName")?.focus();
+    }else if(this.newIntelligence < 1 || this.newIntelligence > 100 ){
+        this.validationMessage="Intelligence must be between 1 and 100";
+        document.getElementById("intelligence")?.focus();
+    }else if(this.newStrength < 1 || this.newStrength > 100 ){
+      this.validationMessage="Strength must be between 1 and 100";
+      document.getElementById("strength")?.focus();
+    }else if(this.newSpeed < 1 || this.newSpeed > 100 ){
+      this.validationMessage="Speed must be between 1 and 100";
+      document.getElementById("speed")?.focus();
+    }else if(this.newDurability < 1 || this.newDurability > 100 ){
+        this.validationMessage="Durability must be between 1 and 100";
+        document.getElementById("durability")?.focus();
+    }else if(this.newPower < 1 || this.newPower > 100 ){
+      this.validationMessage="Power must be between 1 and 100";
+      document.getElementById("power")?.focus();
+    }else if(this.newCombat < 1 || this.newCombat > 100 ){
+      this.validationMessage="Combat must be between 1 and 100";
+      document.getElementById("combat")?.focus();
+    }else{
+
+      this.total = this.newIntelligence+this.newStrength+this.newSpeed+this.newDurability+this.newPower+this.newCombat;
+      if (this.total > 360){
+        this.validationMessage="Total Powerstats should be less than or equal to 360";
+        document.getElementById("intelligence")?.focus();
+      }else{
+
+        this.heroService.addHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
+                                this.newDurability,this.newPower,this.newCombat)).subscribe({
+          next:()=>{
+            console.log("New character created.");
+          },
+          error:()=>{
+            console.log("Couldn't create new character!");
+          }
+        
+        })
       }
-    
-    })
+    }
   }
 
 
@@ -121,7 +154,7 @@ export class HeroesComponent implements OnInit {
     } else if(hero1.intelligence < hero2.intelligence){
       counter--;
     }
-    if(hero1.durability > hero2.durability){
+     if(hero1.durability > hero2.durability){
       counter++;
     } else if(hero1.durability < hero2.durability){
       counter--;
