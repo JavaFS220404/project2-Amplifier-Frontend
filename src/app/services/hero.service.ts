@@ -18,7 +18,12 @@ export class HeroService {
     return this.http.get(this.url,{withCredentials:true}) as Observable<Hero[]>
   }
 
-  addOrUpdateHero(hero:Hero):Observable<Hero>{
+  addHero(hero:Hero):Observable<Hero>{
+    console.log(hero);
+    return this.http.post(this.url,hero,{withCredentials:true}) as Observable<Hero>
+  }
+
+  updateHero(hero:Hero):Observable<Hero>{
     console.log(hero);
     return this.http.put(this.url,hero,{withCredentials:true}) as Observable<Hero>
   }

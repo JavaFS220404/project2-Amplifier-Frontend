@@ -72,7 +72,7 @@ export class HeroesComponent implements OnInit {
   }
 */
 
-createorUpdateCharater(){
+createCharater(){
 
     this.validationMessage='';
 
@@ -106,7 +106,7 @@ createorUpdateCharater(){
       }else{
         let hero:Hero = new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
           this.newDurability,this.newPower,this.newCombat);
-        this.heroService.addOrUpdateHero(hero).subscribe({
+        this.heroService.addHero(hero).subscribe({
           next:()=>{
             console.log("New character created.");
           },
