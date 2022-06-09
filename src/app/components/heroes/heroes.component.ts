@@ -57,7 +57,7 @@ export class HeroesComponent implements OnInit {
   }
 */
 
-  createCharater(){
+createorUpdateCharater(){
 
     this.validationMessage='';
 
@@ -90,7 +90,7 @@ export class HeroesComponent implements OnInit {
         document.getElementById("intelligence")?.focus();
       }else{
 
-        this.heroService.addHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
+        this.heroService.addOrUpdateHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
                                 this.newDurability,this.newPower,this.newCombat)).subscribe({
           next:()=>{
             console.log("New character created.");
