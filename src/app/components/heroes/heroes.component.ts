@@ -104,9 +104,9 @@ createorUpdateCharater(){
         this.validationMessage="Total Powerstats should be less than or equal to 360";
         document.getElementById("intelligence")?.focus();
       }else{
-
-        this.heroService.addOrUpdateHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
-                                this.newDurability,this.newPower,this.newCombat)).subscribe({
+        let hero:Hero = new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
+          this.newDurability,this.newPower,this.newCombat);
+        this.heroService.addOrUpdateHero(hero).subscribe({
           next:()=>{
             console.log("New character created.");
           },
