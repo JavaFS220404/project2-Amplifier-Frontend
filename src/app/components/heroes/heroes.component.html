@@ -1,10 +1,10 @@
 <div *ngIf="username">
   <div class="row justify-content-between">
     <h5 class="col-sm-6">Welcome {{username}}!</h5>
-    <a class="nav-link col-sm-3" routerLinkActive="active" routerLink = "/login">Logout</a>
+    <a (click)="logout()" class="nav-link col-sm-3" routerLinkActive="active" routerLink = "/login">Logout</a>
   </div>
 
-    <!--Search ... begins-->
+    <!--Search ... 
     <form>
       <div class="row">
          <h2 class="col-sm-6">Search for hero:</h2>    
@@ -15,8 +15,7 @@
         <button (click)="getHeroByName()" class="btn btn-success col-md-1 offset-md-1">Search</button>
       </div>   
     </form>
-    <br>
-    <br>
+    begins-->
     <form>
       <div class="form-group">
          <h2 class="col-sm-6">Search for hero:</h2>    
@@ -134,6 +133,29 @@
     </form>
     <button (click)="heroBattle()" class="btn btn-success">Let the battle begin!</button>
     </div>
+    <div *ngIf="visibility">
+      <p>Hero Name 1: {{battleHero1.name}}</p>
+      <img src="{{battleHero1.imgUrl}}">
+      <h2>VS.</h2>
+      <p>Hero Name 2: {{battleHero2.name}}</p>
+      <img src="{{battleHero2.imgUrl}}">
+    </div>
+    <div *ngIf="visibilityRandom">
+      <p>Hero Name 1: {{randomHero1.name}}</p>
+      <img src="{{randomHero1.imgUrl}}">
+      <h2>VS.</h2>
+      <p>Hero Name 2: {{randomHero2.name}}</p>
+      <img src="{{randomHero2.imgUrl}}">
+    </div>
+    <p *ngIf="hero1Win">{{battleHero2.name}} wins!</p>
+    <p *ngIf="hero2Win">{{battleHero2.name}} wins!</p>
+    <p *ngIf="draw">Its a draw!</p>
+    <p *ngIf="random1Win">{{randomHero1.name}} wins!</p>
+    <p *ngIf="random2Win">{{randomHero2.name}} wins!</p>
+    <p *ngIf="randomDraw">Its a draw!</p>
+    <br>
+    <br>
+  <button (click)="randomHeroBattle()" class="btn btn-success">Let two random Heroes battle!</button>
   
 
   </div>
