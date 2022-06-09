@@ -31,6 +31,21 @@ export class HeroesComponent implements OnInit {
 
   battleHeroId1:number = 0;
   battleHeroId2:number = 0;
+  battleHero1:Hero = new Hero(0,"",0,0,0,0,0,0,"");
+  battleHero2:Hero = new Hero(0,"",0,0,0,0,0,0,"");
+
+  visibility:boolean = false;
+  hero1Win:boolean = false;
+  hero2Win:boolean = false;
+  draw:boolean = false;
+
+  random1Win:boolean = false;
+  random2Win:boolean = false;
+  randomDraw:boolean = false;
+
+  randomHero1 = new Hero(0,"",0,0,0,0,0,0,"");
+  randomHero2 = new Hero(0,"",0,0,0,0,0,0,"");
+  visibilityRandom:boolean = false;
 
   constructor(private userService:UserService, private heroService:HeroService) { }
 
@@ -81,7 +96,7 @@ export class HeroesComponent implements OnInit {
   }
 */
 
-  createCharater(){
+createCharater(){
 
     this.validationMessage='';
 
@@ -113,9 +128,9 @@ export class HeroesComponent implements OnInit {
         this.validationMessage="Total Powerstats should be less than or equal to 360";
         document.getElementById("intelligence")?.focus();
       }else{
-
-        this.heroService.addHero(new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
-                                this.newDurability,this.newPower,this.newCombat)).subscribe({
+        let hero:Hero = new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
+          this.newDurability,this.newPower,this.newCombat);
+        this.heroService.addHero(hero).subscribe({
           next:()=>{
             console.log("New character created.");
           },
@@ -142,6 +157,7 @@ export class HeroesComponent implements OnInit {
     })
   }   
 
+<<<<<<< HEAD
 
   addFavourite(){
       this.userService.updateFavouriteList(this.userid,this.heroId).subscribe({
@@ -163,18 +179,33 @@ export class HeroesComponent implements OnInit {
     })
   } */  
 
+=======
+>>>>>>> 91cb44baa345755776cf06736380ffc951334b67
 
   heroBattle(){
+    this.battleHero1 = new Hero(0,"",0,0,0,0,0,0,"");
+    this.battleHero2 = new Hero(0,"",0,0,0,0,0,0,"");
+    this.hero1Win = false;
+    this.hero2Win = false;
+    this.visibility = false;
+    this.draw = false;
+    this.visibilityRandom = false;
+    this.random1Win = false;
+    this.random2Win = false;
+    this.randomDraw = false;
     this.heroService.getHeroById(this.battleHeroId1).subscribe({
       next:(data:any)=>{
           let hero1:Hero = new Hero(this.battleHeroId1, data.name, data.powerstats.intelligence, data.powerstats.strength,
-          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat, data.images.sm);
           this.heroService.getHeroById(this.battleHeroId2).subscribe({
             next:(data:any)=>{
                 let hero2:Hero = new Hero(this.battleHeroId2, data.name, data.powerstats.intelligence, data.powerstats.strength,
-                data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat);
+                data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat,data.images.sm);
                 console.log(hero1);
                 console.log(hero2);
+                this.visibility = true;
+                this.battleHero1 = hero1;
+                this.battleHero2 = hero2;
                 this.battlelogic(hero1,hero2);
             },
             error:()=>{
@@ -223,14 +254,106 @@ export class HeroesComponent implements OnInit {
     }
     if(counter > 0){
       console.log("Hero 1 wins!");
-      // boolean to change appearance in the HTML
+      this.hero1Win = true;
     } else if(counter < 0){
       console.log("Hero 2 wins!");
-      // boolean to change appearance in the HTML 
+      this.hero2Win = true;
     } else {
       console.log("Its a draw!");
-      // boolean to change appearance in the HTML
+      this.draw = true;
     }   
+  }
+
+  randomHeroBattle(){
+    this.randomHero1 = new Hero(0,"",0,0,0,0,0,0,"");
+    this.randomHero2 = new Hero(0,"",0,0,0,0,0,0,"");
+    this.visibility = false;
+    this.hero1Win = false;
+    this.hero2Win = false;
+    this.draw = false;
+    this.visibilityRandom = false;
+    this.random1Win = false;
+    this.random2Win = false;
+    this.randomDraw = false;
+    let number1:number = this.getRandomId();
+    this.heroService.getHeroById(number1).subscribe({
+      next:(data:any)=>{
+          let hero1:Hero = new Hero(number1, data.name, data.powerstats.intelligence, data.powerstats.strength,
+          data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat, data.images.sm);
+          let number2:number = this.getRandomId();
+          this.heroService.getHeroById(number2).subscribe({
+            next:(data:any)=>{
+                let hero2:Hero = new Hero(number2, data.name, data.powerstats.intelligence, data.powerstats.strength,
+                data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat,data.images.sm);
+                console.log(hero1);
+                console.log(hero2);
+                this.visibilityRandom = true;
+                this.randomHero1 = hero1;
+                this.randomHero2 = hero2;
+                this.randombattlelogic(hero1,hero2);
+            },
+            error:()=>{
+              console.log("The second Hero doesnt exist!");
+            }
+          }); 
+      },
+      error:()=>{
+        console.log("The first Hero doesnt exist!");
+      }
+    });  
+
+  }
+
+  randombattlelogic(hero1:Hero, hero2:Hero){
+    let counter:number = 0;
+    if(hero1.intelligence > hero2.intelligence){
+      counter++;
+    } else if(hero1.intelligence < hero2.intelligence){
+      counter--;
+    }
+     if(hero1.durability > hero2.durability){
+      counter++;
+    } else if(hero1.durability < hero2.durability){
+      counter--;
+    }
+    if(hero1.power > hero2.power){
+      counter++;
+    } else if(hero1.power < hero2.power){
+      counter--;
+    }
+    if(hero1.speed > hero2.speed){
+      counter++;
+    } else if(hero1.speed < hero2.speed){
+      counter--;
+    }
+    if(hero1.combat > hero2.combat){
+      counter++;
+    } else if(hero1.combat < hero2.combat){
+      counter--;
+    }
+    if(hero1.strength > hero2.strength){
+      counter++;
+    } else if(hero1.strength < hero2.strength){
+      counter--;
+    }
+    if(counter > 0){
+      console.log("Hero 1 wins!");
+      this.random1Win = true;
+    } else if(counter < 0){
+      console.log("Hero 2 wins!");
+      this.random2Win = true;
+    } else {
+      console.log("Its a draw!");
+      this.randomDraw = true;
+    }   
+  }
+
+  getRandomId():number{
+    return Math.floor(Math.random() * (499 - 1) + 1);
+  }
+
+  logout(){
+    this.heroService.logout();
   }
 }
 
