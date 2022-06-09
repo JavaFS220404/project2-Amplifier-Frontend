@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from 'src/app/models/hero';
+import { User } from 'src/app/models/user';
 import { HeroService } from 'src/app/services/hero.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,6 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 export class HeroesComponent implements OnInit {
 
   username:string = (this.userService.activeUser)?this.userService.activeUser.username:"";
+  userid:number = (this.userService.activeUser)?this.userService.activeUser.id:0;
+ 
   newCharacterName:string = '';
   newIntelligence:number = 0;
   newStrength:number = 0;
@@ -23,8 +26,8 @@ export class HeroesComponent implements OnInit {
 
   heroId:number = 0;
   heroName:string = '';
-  favouriteHeros:Hero[]=[];
   hero:Hero | undefined;
+  favHeros:Hero[] = [];
 
   battleHeroId1:number = 0;
   battleHeroId2:number = 0;
@@ -35,15 +38,36 @@ export class HeroesComponent implements OnInit {
   ngOnInit(): void {
 
   }
- 
   
-  loadFavouriteHeroes():void{
-    this.heroService.getHeroes().subscribe({
-      next:(data:Hero[])=>{
+  
+  viewFavourites():void{
+    this.userService.getFavouriteList(this.userid).subscribe({
+      next:(data:any)=>{
         console.log(data);
-        this.favouriteHeros = data;
+        this.loadFavourites(data.favouriteCharacters)
       }
     })
+  }
+
+
+  loadFavourites(list:string):void{
+    let heroIds:string[] = list.split(",");
+    let counter:number = 0;
+    for (let id of heroIds){
+      let heroid:number = parseInt(id);
+     this.heroService.getHeroById(heroid).subscribe({
+      next:(data:any)=>{
+        let hero = new Hero(this.heroId, data.name, data.powerstats.intelligence, data.powerstats.strength,
+        data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat,data.images.sm);
+        this.favHeros[counter] = hero;
+        counter++;
+        console.log(this.favHeros.length)
+      },
+      error:()=>{
+          console.log("Hero doesn't exist!");
+        }
+      })
+    }
   }
 
   /*
@@ -106,20 +130,38 @@ export class HeroesComponent implements OnInit {
 
 
   getHeroById(){
-    this.heroService.getHeroById(this.heroId).subscribe(
-      {next:(hero:Hero)=>{
-        console.log(hero);
+
+    this.heroService.getHeroById(this.heroId).subscribe({
+    next:(data:any)=>{
+      this.hero = new Hero(this.heroId, data.name, data.powerstats.intelligence, data.powerstats.strength,
+      data.powerstats.speed,data.powerstats.durability,data.powerstats.power,data.powerstats.combat,data.images.sm);
+    },
+    error:()=>{
+        console.log("Hero doesn't exist!");
       }
     })
   }   
 
-  getHeroByName(){
+
+  addFavourite(){
+      this.userService.updateFavouriteList(this.userid,this.heroId).subscribe({
+        next:()=>{
+          console.log("Added to favourites");
+        },
+        error:()=>{
+          console.log("Couldn't add to favourites"); 
+        }
+      });
+    
+  }
+
+ /* getHeroByName(){
     this.heroService.getHeroByName(this.heroName).subscribe(
       {next:(hero:Hero)=>{
         console.log(hero);
       }
     })
-  }   
+  } */  
 
 
   heroBattle(){

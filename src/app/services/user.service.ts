@@ -21,4 +21,13 @@ export class UserService {
   registerUser(user:User):Observable<unknown>{
     return this.http.post(this.url+"register", user);
   }
+
+  updateFavouriteList(id:number,heroid:number):Observable<User>{
+    return this.http.patch(this.url+id,heroid,{withCredentials: true}) as Observable<User>;
+  }
+
+  
+  getFavouriteList(id:number):Observable<any>{
+    return this.http.get(this.url+id) as Observable<any>
+  }
 }

@@ -13,8 +13,8 @@ export class HeroService {
 
   constructor(private http:HttpClient) {}
 
-  getHeroes():Observable<Hero[]>{
-    return this.http.get(this.url,{withCredentials:true}) as Observable<Hero[]>
+  getHeroes(id:number):Observable<string>{
+    return this.http.get(this.url+id,{withCredentials:true}) as Observable<string>
   }
 
   addHero(hero:Hero):Observable<Hero>{
@@ -22,12 +22,13 @@ export class HeroService {
     return this.http.post(this.url,hero,{withCredentials:true}) as Observable<Hero>
   }
 
-// To verify, eventually no hero and any instead of
   getHeroById(id:number):Observable<any>{
-    return this.http.get('https://www.superheroapi.com/api.php/100277516057979/' + id) as Observable<any>
+      // fetch from api
+      return this.http.get('https://akabab.github.io/superhero-api/api/id/'+id+'.json') as Observable<any>
+      //return this.http.get('https://www.superheroapi.com/api.php/100277516057979/' + id) as Observable<any>
+    
   }
 
-  // To verify, eventually no hero and any instead of
   getHeroByName(name:string):Observable<any>{
     return this.http.get('https://www.superheroapi.com/api.php/100277516057979/search/' + name) as Observable<any>
   }

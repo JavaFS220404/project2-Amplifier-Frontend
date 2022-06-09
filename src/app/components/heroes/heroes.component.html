@@ -3,18 +3,6 @@
     <h5 class="col-sm-6">Welcome {{username}}!</h5>
     <a class="nav-link col-sm-3" routerLinkActive="active" routerLink = "/login">Logout</a>
   </div>
-
-    <!--Search ... begins-->
-    <form>
-      <div class="row">
-         <h2 class="col-sm-6">Search for hero:</h2>    
-      </div>
-      <div class="row justify-content-start">
-        <label for="searchName" class="col-sm-1">Name:</label>
-        <input type="text" id="searchName" name="searchName" class="col-sm-3" [(ngModel)]="heroName">
-        <button (click)="getHeroByName()" class="btn btn-success col-md-1 offset-md-1">Search</button>
-      </div>   
-    </form>
     <br>
     <br>
     <form>
@@ -22,55 +10,59 @@
          <h2 class="col-sm-6">Search for hero:</h2>    
       </div>
       <div >
-        <label for="searchId"  class="col-sm-1">Id:</label>
-        <input type="number" id="searchId" name="searchId" class="col-sm-3" [(ngModel)]="heroId">
+        <label for="searchId"  class="col-sm-1">Hero Id:</label>
+        <input type="number" id="searchId" name="searchId" class="col-sm-1" [(ngModel)]="heroId">
         <button (click)="getHeroById()" class="btn btn-success col-md-1 offset-md-1">Search</button>
+        <button *ngIf="hero" (click)="addFavourite()" class="btn btn-success col-md-2 offset-md-1">Add to Favourites</button>
       </div>  
+
+      <div *ngIf="hero" class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{hero.imgUrl}}" alt="Card image cap">
+        <div class="card-body">
+          <ul>
+            <li><b>Hero Name:</b> {{hero.name}}</li>
+            <li><b>Intelligence:</b> {{hero.intelligence}}</li>
+            <li><b>Durability:</b> {{hero.durability}}</li>
+            <li><b>Power:</b> {{hero.power}}</li>
+            <li><b>Speed:</b> {{hero.speed}}</li>
+            <li><b>Combat:</b> {{hero.combat}}</li>
+            <li><b>Strength:</b> {{hero.strength}}</li>
+          </ul>
+        </div>
+      </div>
     </form>
     <!--Search ... ends here-->
+    
+    <br>
+    <br>
 
-
-    <!--  Table to display list of favourite Heroes
-    <table *ngIf="favouriteHeros.length>0" class="table table-sm table-stripped">
-      <thead>
-        <tr>
-          <th scope="col">Hero Id</th>
-          <th scope="col">Hero Name</th>
-          <th scope="col">Powerstats</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let fc of favouriteCharacters">
-          <td>{{hero.characterId}}</td>
-          <td>{{hero.characterName}}</td>
-          <td>
-            <table *ngIf="characters.powerStats.length>0">
-              <thead>
-                <tr>
-                  <th scope="col">Intelligence</th>
-                  <th scope="col">Strength</th>
-                  <th scope="col">Speed</th>
-                  <th scope="col">Durability</th>
-                  <th scope="col">Power</th>
-                  <th scope="col">Combat</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let p of fc.powerStats">
-                  <td>{{p.intelligence}}</td>
-                  <td>{{p.strength}}</td>
-                  <td>{{p.speed}}</td>
-                  <td>{{p.durability}}</td>
-                  <td>{{p.power}}</td>
-                  <td>{{p.combat}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  Favourite Heroes Table End-->
+    <!--favourite hero list comes here-->
+    <form>
+      <div>
+        <button (click)="viewFavourites()" class="btn btn-success">View Favourite Heros</button>
+      </div>
+      <div *ngIf="favHeros.length>0" class="container">
+        <div class="row">
+          <div *ngFor="let hero of favHeros" class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{hero.imgUrl}}" alt="Card image cap">
+            <div class="card-body">
+              <ul>
+                <li><b>Hero Name:</b> {{hero.name}}</li>
+                <li><b>Intelligence:</b> {{hero.intelligence}}</li>
+                <li><b>Durability:</b> {{hero.durability}}</li>
+                <li><b>Power:</b> {{hero.power}}</li>
+                <li><b>Speed:</b> {{hero.speed}}</li>
+                <li><b>Combat:</b> {{hero.combat}}</li>
+                <li><b>Strength:</b> {{hero.strength}}</li>
+              </ul>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      
+    </form>
+    <!--favourite hero list ends-->
     <br>
     <br>  
 
