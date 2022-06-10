@@ -82,7 +82,6 @@
           <label for="characterName">Character Name:</label>
           <input type="text" id="characterName" name="characterName" class="col-sm-2" [(ngModel)]="newCharacterName">
         </div>  
-        <img src="./assets/own-hero.jpg">
         <div class="row">
           <h5 class="col-sm-6">Powerstats:</h5>    
         </div>
@@ -111,7 +110,8 @@
           <input type="number" id="combat" name="combat" class="col-sm-2" [(ngModel)]="newCombat">
         </div>
       </form>
-      <button (click)="createCharater()" class="btn btn-success col-sm-6">Create Character</button>
+      <button *ngIf="!created" (click)="createCharater()" class="btn btn-success col-sm-6">Create Character</button>
+      <button *ngIf="created" (click)="updateCharater()" class="btn btn-success col-sm-6">Update Character</button>
     </div>
     <!--Create Hero  ....ends -->
 
