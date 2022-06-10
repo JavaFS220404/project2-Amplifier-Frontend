@@ -13,9 +13,13 @@ export class HeroService {
   
 
   constructor(private http:HttpClient, private userService:UserService) {}
-
+/*
   getHeroes(id:number):Observable<string>{
     return this.http.get(this.url+id,{withCredentials:true}) as Observable<string>
+  }*/
+
+  getHero(id:number):Observable<Hero>{
+    return this.http.get(this.url+id,{withCredentials:true}) as Observable<Hero>
   }
 
   addHero(hero:Hero):Observable<Hero>{

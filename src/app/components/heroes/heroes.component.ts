@@ -27,6 +27,7 @@ export class HeroesComponent implements OnInit {
   heroId:number = 0;
   heroName:string = '';
   hero:Hero | undefined;
+  dbHeroId:number = 0;
   favHeros:Hero[] = [];
 
   battleHeroId1:number = 0;
@@ -54,6 +55,7 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.loadHero();
   }
   
   
@@ -87,16 +89,27 @@ export class HeroesComponent implements OnInit {
     }
   }
 
-  /*
-  loadHero(hero:Hero):void{
-    this.heroService.getHeroes().subscribe({
-      next:(data:Hero[])=>{
+  
+  loadHero():void{
+    console.log(this.userid);
+    this.heroService.getHero(this.userid).subscribe({
+      next:(data:Hero)=>{
         console.log(data);
-        this.favouriteHeros = data;
+        this.dbHeroId = data.id;
+        this.newCharacterName = data.name;
+        this.newIntelligence= data.intelligence;
+        this.newStrength = data.strength;
+        this.newSpeed = data.speed;
+        this.newDurability = data.durability;
+        this.newPower = data.power;
+        this.newCombat = data.combat;
+
+        this.created = true;
+      },error:()=>{
+        console.log("Couldnt get Hero");
       }
     })
   }
-*/
 
 createCharater(){
 
@@ -133,7 +146,9 @@ createCharater(){
         let hero:Hero = new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
           this.newDurability,this.newPower,this.newCombat);
         this.heroService.addHero(hero).subscribe({
-          next:()=>{
+          next:(data:Hero)=>{
+            console.log(data);
+            this.dbHeroId = data.id;
             console.log("New character created.");
             this.created = true;
           },
@@ -178,11 +193,11 @@ createCharater(){
         this.validationMessage="Total Powerstats should be less than or equal to 360";
         document.getElementById("intelligence")?.focus();
       }else{
-        let hero:Hero = new Hero(0,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
+        let hero:Hero = new Hero(this.dbHeroId,this.newCharacterName,this.newIntelligence, this.newStrength,this.newSpeed,
           this.newDurability,this.newPower,this.newCombat);
         this.heroService.updateHero(hero).subscribe({
           next:()=>{
-            console.log("New character created.");
+            console.log("Character updated.");
             this.created = true;
           },
           error:()=>{
