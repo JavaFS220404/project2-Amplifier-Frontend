@@ -47,6 +47,8 @@ export class HeroesComponent implements OnInit {
   randomHero2 = new Hero(0,"",0,0,0,0,0,0,"");
   visibilityRandom:boolean = false;
 
+  created: boolean = false;
+
   constructor(private userService:UserService, private heroService:HeroService) { }
 
 
@@ -133,6 +135,7 @@ createCharater(){
         this.heroService.addHero(hero).subscribe({
           next:()=>{
             console.log("New character created.");
+            this.created = true;
           },
           error:()=>{
             console.log("Couldn't create new character!");

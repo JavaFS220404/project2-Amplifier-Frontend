@@ -82,6 +82,7 @@
           <label for="characterName">Character Name:</label>
           <input type="text" id="characterName" name="characterName" class="col-sm-2" [(ngModel)]="newCharacterName">
         </div>  
+        <img src="./assets/own-hero.jpg">
         <div class="row">
           <h5 class="col-sm-6">Powerstats:</h5>    
         </div>
@@ -102,7 +103,7 @@
           <input type="number" id="durability" name="durability" class="col-sm-2" [(ngModel)]="newDurability">
         </div>
         <div class="row">
-          <label for="newPower">Power:</label>
+          <label for="power">Power:</label>
           <input type="number" id="power" name="power" class="col-sm-2" [(ngModel)]="newPower">
         </div>
         <div class="row">
@@ -113,6 +114,26 @@
       <button (click)="createCharater()" class="btn btn-success col-sm-6">Create Character</button>
     </div>
     <!--Create Hero  ....ends -->
+
+
+    <!--Show created hero-->
+    <div class="row">
+      <div *ngIf = "created" class="card" style="width: 18rem;">
+        <img class="card-img-top" src="./assets/own-hero.jpg" alt="Card image cap">
+        <div class="card-body">
+          <ul>
+            <li><b>Hero Name:</b> {{newCharacterName}}</li>
+            <li><b>Intelligence:</b> {{newIntelligence}}</li>
+            <li><b>Durability:</b> {{newDurability}}</li>
+            <li><b>Power:</b> {{newPower}}</li>
+            <li><b>Speed:</b> {{newSpeed}}</li>
+            <li><b>Combat:</b> {{newCombat}}</li>
+            <li><b>Strength:</b> {{newStrength}}</li>
+          </ul>
+        </div>
+      </div>
+      <br>
+    </div>
 
     <!--Battle Sim-->
     <div>
